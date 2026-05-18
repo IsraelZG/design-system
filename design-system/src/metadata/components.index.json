@@ -1,0 +1,220 @@
+{
+  "$schema": "https://your-app.dev/schemas/components.index.v1.json",
+  "generatedAt": "2026-05-18T16:49:08.060Z",
+  "count": 5,
+  "components": [
+    {
+      "name": "Button",
+      "category": "atom",
+      "type": "interactive",
+      "description": "Triggers an action when activated. Pill-shaped by default to match the system aesthetic.",
+      "path": "src/components/Button/Button.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Button\\Button.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "button",
+        "cta",
+        "submit",
+        "action",
+        "click",
+        "tap",
+        "press",
+        "confirm",
+        "cancel",
+        "save",
+        "delete"
+      ],
+      "useCases": [
+        "primary-call-to-action",
+        "form-submission",
+        "destructive-action",
+        "modal-confirmation",
+        "toolbar-action"
+      ],
+      "variants": [
+        "variant",
+        "size"
+      ],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Button",
+        "Link"
+      ],
+      "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Card",
+      "category": "molecule",
+      "type": "container",
+      "description": "Elevated rectangular surface that groups related content. The workhorse container of dashboards, lists, and marketing layouts.",
+      "path": "src/components/Card/Card.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Card\\Card.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "card",
+        "tile",
+        "panel",
+        "box",
+        "container",
+        "group",
+        "block"
+      ],
+      "useCases": [
+        "dashboard-metric",
+        "list-item",
+        "product-tile",
+        "feature-block",
+        "profile-summary",
+        "settings-section"
+      ],
+      "variants": [
+        "interactive",
+        "padding"
+      ],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Card",
+        "Button",
+        "Link"
+      ],
+      "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Input",
+      "category": "atom",
+      "type": "input",
+      "description": "Single-line text input. The base primitive for typed user data in forms, search, and filters.",
+      "path": "src/components/Input/Input.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Input\\Input.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "input",
+        "field",
+        "text field",
+        "textbox",
+        "form",
+        "search",
+        "edit",
+        "type"
+      ],
+      "useCases": [
+        "form-field",
+        "inline-search",
+        "filter-field",
+        "inline-edit",
+        "auth-credentials"
+      ],
+      "variants": [
+        "size"
+      ],
+      "requiredProps": [
+        "value",
+        "onChange"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Button",
+        "Input"
+      ],
+      "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Message",
+      "category": "molecule",
+      "type": "display",
+      "description": "A single chat bubble. The unit of conversation UIs: messaging, AI chat, support, comments.",
+      "path": "src/components/Message/Message.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Message\\Message.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "message",
+        "chat",
+        "bubble",
+        "conversation",
+        "thread",
+        "dm",
+        "reply",
+        "comment"
+      ],
+      "useCases": [
+        "direct-messaging",
+        "group-chat",
+        "ai-assistant-response",
+        "support-conversation",
+        "inline-comments"
+      ],
+      "variants": [
+        "author",
+        "density"
+      ],
+      "requiredProps": [
+        "author",
+        "children"
+      ],
+      "parentConstraints": [
+        "MessageList",
+        "MessageGroup"
+      ],
+      "forbiddenParents": [
+        "Card",
+        "Button"
+      ],
+      "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "NavItem",
+      "category": "atom",
+      "type": "navigation",
+      "description": "A single row in a navigation rail or menu. Renders an icon, label, and selected state. Always a link or button — never a plain div.",
+      "path": "src/components/NavItem/NavItem.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\NavItem\\NavItem.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "nav",
+        "menu",
+        "sidebar",
+        "link",
+        "tab",
+        "navigation",
+        "route"
+      ],
+      "useCases": [
+        "sidebar-navigation",
+        "mobile-tab-bar",
+        "dropdown-menu-item",
+        "settings-list",
+        "workspace-switcher"
+      ],
+      "variants": [
+        "tone",
+        "size"
+      ],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [
+        "Sidebar",
+        "NavGroup",
+        "Menu",
+        "TabBar"
+      ],
+      "forbiddenParents": [
+        "Button",
+        "Link",
+        "NavItem"
+      ],
+      "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    }
+  ]
+}

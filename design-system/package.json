@@ -1,0 +1,54 @@
+{
+  "name": "@your-app/design-system",
+  "version": "0.1.0",
+  "description": "Multi-platform design system with theming support (light/dark + white-label).",
+  "main": "build/react/index.js",
+  "types": "build/react/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/react/index.js",
+      "types": "./build/react/src/index.d.ts",
+      "style": "./build/react/index.css"
+    },
+    "./theme-light.css": "./build/web/theme-light.css",
+    "./theme-dark.css": "./build/web/theme-dark.css",
+    "./theme-light": "./build/web/theme-light.js",
+    "./theme-dark": "./build/web/theme-dark.js"
+  },
+  "scripts": {
+    "build:tokens": "node style-dictionary.config.js && npm run build:index",
+    "build:index": "node --experimental-strip-types scripts/build-component-index.mjs",
+    "build:react": "vite build",
+    "build": "npm run build:tokens && npm run build:react",
+    "validate": "node --experimental-strip-types scripts/validate-metadata.mjs",
+    "test": "npm run validate",
+    "dev": "nodemon --watch tokens --watch src --ext json,ts,tsx,css --exec \"npm run build\"",
+    "clean": "rm -rf build"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0",
+    "@radix-ui/react-slot": "^1.2.3"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "nodemon": "^3.0.0",
+    "style-dictionary": "^3.9.2",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^6.0.3",
+    "vite": "^6.3.0",
+    "vite-plugin-dts": "^4.5.0"
+  },
+  "files": [
+    "build",
+    "tokens"
+  ]
+}
