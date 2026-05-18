@@ -1,8 +1,82 @@
 {
   "$schema": "https://your-app.dev/schemas/components.index.v1.json",
-  "generatedAt": "2026-05-18T16:49:08.060Z",
-  "count": 5,
+  "generatedAt": "2026-05-18T20:34:10.009Z",
+  "count": 11,
   "components": [
+    {
+      "name": "Avatar",
+      "category": "atom",
+      "type": "display",
+      "description": "Circular user representation. Shows a photo, initials, or a fallback icon when no image is available.",
+      "path": "src/components/Avatar/Avatar.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Avatar\\Avatar.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "avatar",
+        "profile",
+        "photo",
+        "user",
+        "person",
+        "initials",
+        "picture",
+        "image",
+        "face"
+      ],
+      "useCases": [
+        "user-identity",
+        "message-sender",
+        "assignee-indicator",
+        "profile-thumbnail",
+        "avatar-group"
+      ],
+      "variants": [
+        "size"
+      ],
+      "requiredProps": [],
+      "parentConstraints": [],
+      "forbiddenParents": [],
+      "lastUpdated": "2026-05-18T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Badge",
+      "category": "atom",
+      "type": "display",
+      "description": "Compact label that communicates status, category, or a count. Never interactive on its own.",
+      "path": "src/components/Badge/Badge.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Badge\\Badge.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "badge",
+        "tag",
+        "label",
+        "chip",
+        "pill",
+        "status",
+        "count",
+        "indicator",
+        "dot",
+        "notification"
+      ],
+      "useCases": [
+        "status-indicator",
+        "notification-count",
+        "category-tag",
+        "kpi-delta",
+        "record-state"
+      ],
+      "variants": [
+        "intent",
+        "size"
+      ],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [],
+      "lastUpdated": "2026-05-18T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
     {
       "name": "Button",
       "category": "atom",
@@ -85,6 +159,43 @@
         "Link"
       ],
       "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Checkbox",
+      "category": "atom",
+      "type": "input",
+      "description": "Binary input control. Lets users select zero, one, or many items from a set. Supports an indeterminate state for partial selection.",
+      "path": "src/components/Checkbox/Checkbox.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Checkbox\\Checkbox.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "checkbox",
+        "check",
+        "select",
+        "multi-select",
+        "tick",
+        "boolean",
+        "toggle",
+        "option"
+      ],
+      "useCases": [
+        "multi-select-form",
+        "settings-toggle",
+        "table-row-selection",
+        "select-all",
+        "terms-acceptance"
+      ],
+      "variants": [
+        "size"
+      ],
+      "requiredProps": [],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Button",
+        "Input"
+      ],
+      "lastUpdated": "2026-05-18T00:00:00Z",
       "metadataVersion": "1.0.0"
     },
     {
@@ -214,6 +325,134 @@
         "NavItem"
       ],
       "lastUpdated": "2026-05-17T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Alert",
+      "category": "molecule",
+      "type": "feedback",
+      "description": "Inline persistent status message. Renders in document flow, does not dismiss automatically.",
+      "path": "src/components/Alert/Alert.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Alert\\Alert.metadata.ts",
+      "priority": "medium",
+      "keywords": [
+        "alert",
+        "warning",
+        "error",
+        "notice",
+        "info",
+        "feedback",
+        "status",
+        "inline",
+        "message",
+        "notification"
+      ],
+      "useCases": [
+        "form-level-error",
+        "page-level-warning",
+        "success-confirmation-inline",
+        "permission-notice",
+        "quota-warning"
+      ],
+      "variants": [
+        "intent"
+      ],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Button",
+        "Modal"
+      ],
+      "lastUpdated": "2026-05-18T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Modal",
+      "category": "organism",
+      "type": "container",
+      "description": "Blocking dialog that floats above the page. Traps focus, requires explicit dismissal, and scrim covers the background.",
+      "path": "src/components/Modal/Modal.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Modal\\Modal.metadata.ts",
+      "priority": "medium",
+      "keywords": [
+        "modal",
+        "dialog",
+        "popup",
+        "overlay",
+        "confirm",
+        "alert dialog",
+        "lightbox",
+        "drawer"
+      ],
+      "useCases": [
+        "destructive-confirmation",
+        "form-in-modal",
+        "detail-view",
+        "critical-error",
+        "onboarding-step"
+      ],
+      "variants": [
+        "size"
+      ],
+      "requiredProps": [
+        "open",
+        "onClose",
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Modal",
+        "Card",
+        "Button"
+      ],
+      "lastUpdated": "2026-05-18T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "Toast",
+      "category": "molecule",
+      "type": "feedback",
+      "description": "Transient notification that surfaces system status. Floats above content and dismisses automatically.",
+      "path": "src/components/Toast/Toast.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\Toast\\Toast.metadata.ts",
+      "priority": "medium",
+      "keywords": [
+        "toast",
+        "notification",
+        "snackbar",
+        "alert",
+        "status",
+        "message",
+        "flash",
+        "banner",
+        "notice"
+      ],
+      "useCases": [
+        "save-confirmation",
+        "background-task-result",
+        "error-notification",
+        "connection-status",
+        "undo-affordance"
+      ],
+      "variants": [
+        "intent",
+        "placement"
+      ],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [
+        "ToastViewport"
+      ],
+      "forbiddenParents": [
+        "Modal",
+        "Card",
+        "Button",
+        "Link"
+      ],
+      "lastUpdated": "2026-05-18T18:22:57Z",
       "metadataVersion": "1.0.0"
     }
   ]
