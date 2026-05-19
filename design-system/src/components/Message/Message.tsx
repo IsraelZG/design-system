@@ -92,6 +92,9 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(
             isSending && 'opacity-60',
             // failed: theme exception documented in metadata
             isFailed && 'border-2 border-[var(--ds-theme-intent-danger-border)]',
+            // Tail corner: reduce attachment-side bottom corner (showcase.html .bubble pattern)
+            isSent && 'rounded-br-[var(--ds-radius-sm)]',
+            !isSent && !isAi && 'rounded-bl-[var(--ds-radius-sm)]',
           )}
           aria-busy={isSending || undefined}
         >

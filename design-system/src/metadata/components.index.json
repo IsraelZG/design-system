@@ -1,7 +1,7 @@
 {
   "$schema": "https://your-app.dev/schemas/components.index.v1.json",
-  "generatedAt": "2026-05-18T20:56:26.778Z",
-  "count": 11,
+  "generatedAt": "2026-05-19T18:11:49.590Z",
+  "count": 13,
   "components": [
     {
       "name": "Avatar",
@@ -196,6 +196,44 @@
         "Input"
       ],
       "lastUpdated": "2026-05-18T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "FormField",
+      "category": "molecule",
+      "type": "input",
+      "description": "Composes a label, an input control, and optional helper/error text into a single accessible form field unit.",
+      "path": "src/components/FormField/FormField.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\FormField\\FormField.metadata.ts",
+      "priority": "high",
+      "keywords": [
+        "form field",
+        "label",
+        "input with label",
+        "field with error",
+        "form row",
+        "text field label",
+        "labeled checkbox"
+      ],
+      "useCases": [
+        "labeled-text-input",
+        "labeled-checkbox",
+        "form-field-with-validation",
+        "accessible-form-row",
+        "settings-form-field"
+      ],
+      "variants": [],
+      "requiredProps": [
+        "label",
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Button",
+        "NavItem",
+        "Badge"
+      ],
+      "lastUpdated": "2026-05-19T00:00:00Z",
       "metadataVersion": "1.0.0"
     },
     {
@@ -408,6 +446,40 @@
         "Button"
       ],
       "lastUpdated": "2026-05-18T00:00:00Z",
+      "metadataVersion": "1.0.0"
+    },
+    {
+      "name": "NavGroup",
+      "category": "molecule",
+      "type": "navigation",
+      "description": "Groups NavItems under an optional overline category label. The structural wrapper that satisfies NavItem's parentConstraints.",
+      "path": "src/components/NavGroup/NavGroup.tsx",
+      "metadataPath": "C:\\Dev2026\\Design System\\design-system\\src\\components\\NavGroup\\NavGroup.metadata.ts",
+      "priority": "medium",
+      "keywords": [
+        "nav group",
+        "sidebar section",
+        "menu section",
+        "navigation category",
+        "nav label"
+      ],
+      "useCases": [
+        "sidebar-category-group",
+        "menu-section",
+        "settings-section-header",
+        "navigation-rail-group"
+      ],
+      "variants": [],
+      "requiredProps": [
+        "children"
+      ],
+      "parentConstraints": [],
+      "forbiddenParents": [
+        "Button",
+        "NavItem",
+        "Card"
+      ],
+      "lastUpdated": "2026-05-19T00:00:00Z",
       "metadataVersion": "1.0.0"
     },
     {

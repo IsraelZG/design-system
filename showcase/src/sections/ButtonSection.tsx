@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Button } from '@ds/index';
+import { Button, Card } from '@ds/index';
 import { SectionWrapper, Subsection } from '../ui/SectionWrapper';
 
-const variants = ['primary', 'secondary', 'ghost', 'danger'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
 
 export default function ButtonSection() {
@@ -17,31 +16,49 @@ export default function ButtonSection() {
     <SectionWrapper
       id="button"
       title="Button"
-      description="Elemento de ação primária. Cada seção de produto deve ter no máximo um variant=primary."
+      overline="Component"
+      description="Triggers an action. Keep at most one primary variant per section."
     >
-      {variants.map(variant => (
-        <Subsection key={variant} title={variant}>
-          {sizes.map(size => (
-            <Button key={size} variant={variant} size={size}>
-              {variant} {size}
-            </Button>
-          ))}
-        </Subsection>
-      ))}
+      <Subsection title="Primary — main call to action">
+        <Button size="sm">Get started</Button>
+        <Button size="md">Save changes</Button>
+        <Button size="lg">Continue</Button>
+      </Subsection>
+
+      <Subsection title="Secondary — supporting actions">
+        <Button variant="secondary" size="sm">Cancel</Button>
+        <Button variant="secondary" size="md">View details</Button>
+        <Button variant="secondary" size="lg">Back</Button>
+      </Subsection>
+
+      <Subsection title="Ghost — tertiary / low emphasis">
+        <Button variant="ghost" size="sm">Skip</Button>
+        <Button variant="ghost" size="md">Learn more</Button>
+        <Button variant="ghost" size="lg">More options</Button>
+      </Subsection>
+
+      <Subsection title="Danger — destructive actions">
+        <Button variant="danger" size="sm">Remove</Button>
+        <Button variant="danger" size="md">Delete account</Button>
+        <Button variant="danger" size="lg">Revoke access</Button>
+      </Subsection>
 
       <Subsection title="States">
         <Button loading={loading} onClick={simulateLoading}>
-          {loading ? 'Carregando…' : 'Simular loading (2s)'}
+          {loading ? 'Saving…' : 'Submit form'}
         </Button>
         <Button disabled>Primary disabled</Button>
         <Button variant="secondary" disabled>Secondary disabled</Button>
         <Button variant="ghost" disabled>Ghost disabled</Button>
       </Subsection>
 
-      <Subsection title="Full Width" stack>
-        <div className="w-full max-w-sm">
-          <Button fullWidth>Full Width</Button>
-        </div>
+      <Subsection title="Full width" stack>
+        <Card padding="sm" className="max-w-sm w-full">
+          <p className="text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-muted)] mb-3">
+            Checkout form footer
+          </p>
+          <Button fullWidth>Complete purchase</Button>
+        </Card>
       </Subsection>
     </SectionWrapper>
   );

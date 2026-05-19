@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input } from '@ds/index';
+import { Input, FormField } from '@ds/index';
 import { SectionWrapper, Subsection } from '../ui/SectionWrapper';
 
 const SearchIcon = () => (
@@ -19,9 +19,9 @@ const MailIcon = () => (
 export default function InputSection() {
   const [values, setValues] = useState({
     basic: '',
-    leading: '',
-    trailing: '',
-    invalid: 'valor-incorreto',
+    email: '',
+    search: '',
+    username: 'bad-user!!',
     sm: '',
     md: '',
     lg: '',
@@ -34,40 +34,63 @@ export default function InputSection() {
     <SectionWrapper
       id="input"
       title="Input"
-      description="Campo de texto. Sempre associar a um label externo — nunca usar placeholder como substituto."
+      overline="Component"
+      description="Single-line text control. Always pair with a visible label — never rely on placeholder alone."
     >
-      <Subsection title="Variações" stack>
-        <div className="flex flex-col gap-3 w-full max-w-xs">
-          <Input value={values.basic} onChange={update('basic')} placeholder="Básico" />
-          <Input
-            value={values.leading}
-            onChange={update('leading')}
-            placeholder="Com ícone esquerdo"
-            leadingIcon={<MailIcon />}
-            type="email"
-          />
-          <Input
-            value={values.trailing}
-            onChange={update('trailing')}
-            placeholder="Com ícone direito"
-            trailingIcon={<SearchIcon />}
-          />
-          <Input
-            value={values.invalid}
-            onChange={update('invalid')}
-            invalid
-            placeholder="Campo inválido"
-          />
-          <Input value="não editável" onChange={() => {}} disabled />
-          <Input value="somente leitura" onChange={() => {}} readOnly />
+      <Subsection title="With labels and context" stack>
+        <div className="flex flex-col gap-4 w-full max-w-xs">
+          <FormField label="Full name" htmlFor="input-name">
+            <Input id="input-name" value={values.basic} onChange={update('basic')} placeholder="Jane Smith" />
+          </FormField>
+
+          <FormField label="Email address" htmlFor="input-email">
+            <Input
+              id="input-email"
+              value={values.email}
+              onChange={update('email')}
+              placeholder="you@company.com"
+              leadingIcon={<MailIcon />}
+              type="email"
+            />
+          </FormField>
+
+          <FormField label="Search" htmlFor="input-search">
+            <Input
+              id="input-search"
+              value={values.search}
+              onChange={update('search')}
+              placeholder="Search components…"
+              trailingIcon={<SearchIcon />}
+            />
+          </FormField>
+
+          <FormField
+            label="Username"
+            htmlFor="input-username"
+            errorText="Only letters, numbers, and underscores. 3–20 characters."
+          >
+            <Input
+              id="input-username"
+              value={values.username}
+              onChange={update('username')}
+              invalid
+              placeholder="your_username"
+            />
+          </FormField>
+
+          <FormField label="Read-only" htmlFor="input-readonly" helpText="This value is managed by your SSO provider.">
+            <Input id="input-readonly" value="israel.gianesini" onChange={() => {}} readOnly />
+          </FormField>
+
+          <Input value="Disabled field" onChange={() => {}} disabled />
         </div>
       </Subsection>
 
-      <Subsection title="Tamanhos" stack>
+      <Subsection title="Sizes" stack>
         <div className="flex flex-col gap-3 w-full max-w-xs">
-          <Input value={values.sm} onChange={update('sm')} size="sm" placeholder="Small" />
-          <Input value={values.md} onChange={update('md')} size="md" placeholder="Medium (padrão)" />
-          <Input value={values.lg} onChange={update('lg')} size="lg" placeholder="Large" />
+          <Input value={values.sm} onChange={update('sm')} size="sm" placeholder="Small (32px)" />
+          <Input value={values.md} onChange={update('md')} size="md" placeholder="Medium — default (40px)" />
+          <Input value={values.lg} onChange={update('lg')} size="lg" placeholder="Large (48px)" />
         </div>
       </Subsection>
     </SectionWrapper>

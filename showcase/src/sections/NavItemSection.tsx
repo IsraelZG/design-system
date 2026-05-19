@@ -1,4 +1,4 @@
-import { NavItem } from '@ds/index';
+import { NavItem, NavGroup } from '@ds/index';
 import { SectionWrapper, Subsection } from '../ui/SectionWrapper';
 
 const HomeIcon = () => (
@@ -28,25 +28,29 @@ const UsersIcon = () => (
   </svg>
 );
 
-function NavGroup({ children }: { children: React.ReactNode }) {
+function SidebarContainer({ children, collapsed }: { children: React.ReactNode; collapsed?: boolean }) {
   return (
-    <div
-      className="flex flex-col gap-1 p-2 rounded-xl w-52"
-      style={{ backgroundColor: 'var(--ds-theme-surface-subdued)' }}
+    <nav
+      aria-label="Example sidebar"
+      className={`flex flex-col gap-4 p-2 rounded-2xl border border-[color:var(--ds-theme-border-subtle)] bg-[var(--ds-theme-surface-default)] ${
+        collapsed ? 'w-[var(--ds-component-navigation-sidebar-width-collapsed)]' : 'w-60'
+      }`}
     >
       {children}
-    </div>
+    </nav>
   );
 }
 
-function NavGroupDark({ children }: { children: React.ReactNode }) {
+function SidebarContainerDark({ children, collapsed }: { children: React.ReactNode; collapsed?: boolean }) {
   return (
-    <div
-      className="flex flex-col gap-1 p-2 rounded-xl w-52"
-      style={{ backgroundColor: 'var(--ds-theme-surface-inverse)' }}
+    <nav
+      aria-label="Example dark sidebar"
+      className={`flex flex-col gap-4 p-2 rounded-2xl bg-[var(--ds-theme-surface-inverse)] ${
+        collapsed ? 'w-[var(--ds-component-navigation-sidebar-width-collapsed)]' : 'w-60'
+      }`}
     >
       {children}
-    </div>
+    </nav>
   );
 }
 
@@ -55,44 +59,59 @@ export default function NavItemSection() {
     <SectionWrapper
       id="navitem"
       title="NavItem"
-      description="Item de navegação lateral. active é exclusivo por grupo — dois active simultâneos é bug."
+      overline="Component"
+      description="Single navigation row. active is exclusive per group — two active items in the same group is a bug."
     >
-      <Subsection title="Default tone">
-        <NavGroup>
-          <NavItem as="button" icon={<HomeIcon />} active>Início</NavItem>
-          <NavItem as="button" icon={<ChartIcon />}>Analytics</NavItem>
-          <NavItem as="button" icon={<UsersIcon />}>Usuários</NavItem>
-          <NavItem as="button" icon={<SettingsIcon />} disabled>Configurações</NavItem>
-        </NavGroup>
+      <Subsection title="Light sidebar">
+        <SidebarContainer>
+          <NavGroup label="Main">
+            <NavItem as="button" icon={<HomeIcon />} active>Dashboard</NavItem>
+            <NavItem as="button" icon={<ChartIcon />}>Analytics</NavItem>
+          </NavGroup>
+          <NavGroup label="Admin">
+            <NavItem as="button" icon={<UsersIcon />}>Users</NavItem>
+            <NavItem as="button" icon={<SettingsIcon />} disabled>Settings</NavItem>
+          </NavGroup>
+        </SidebarContainer>
       </Subsection>
 
-      <Subsection title="Inverse tone">
-        <NavGroupDark>
-          <NavItem as="button" icon={<HomeIcon />} tone="inverse" active>Início</NavItem>
-          <NavItem as="button" icon={<ChartIcon />} tone="inverse">Analytics</NavItem>
-          <NavItem as="button" icon={<UsersIcon />} tone="inverse">Usuários</NavItem>
-          <NavItem as="button" icon={<SettingsIcon />} tone="inverse" disabled>Configurações</NavItem>
-        </NavGroupDark>
+      <Subsection title="Dark sidebar (tone=inverse)">
+        <SidebarContainerDark>
+          <NavGroup label="Main">
+            <NavItem as="button" icon={<HomeIcon />} tone="inverse" active>Dashboard</NavItem>
+            <NavItem as="button" icon={<ChartIcon />} tone="inverse">Analytics</NavItem>
+          </NavGroup>
+          <NavGroup label="Admin">
+            <NavItem as="button" icon={<UsersIcon />} tone="inverse">Users</NavItem>
+            <NavItem as="button" icon={<SettingsIcon />} tone="inverse" disabled>Settings</NavItem>
+          </NavGroup>
+        </SidebarContainerDark>
       </Subsection>
 
-      <Subsection title="Collapsed (icon-only)">
-        <NavGroup>
-          <NavItem as="button" icon={<HomeIcon />} collapsed active aria-label="Início" />
-          <NavItem as="button" icon={<ChartIcon />} collapsed aria-label="Analytics" />
-          <NavItem as="button" icon={<UsersIcon />} collapsed aria-label="Usuários" />
-          <NavItem as="button" icon={<SettingsIcon />} collapsed aria-label="Configurações" />
-        </NavGroup>
-        <NavGroupDark>
-          <NavItem as="button" icon={<HomeIcon />} collapsed tone="inverse" active aria-label="Início" />
-          <NavItem as="button" icon={<ChartIcon />} collapsed tone="inverse" aria-label="Analytics" />
-        </NavGroupDark>
+      <Subsection title="Collapsed — icon only (aria-label required)">
+        <SidebarContainer collapsed>
+          <NavGroup>
+            <NavItem as="button" icon={<HomeIcon />} collapsed active aria-label="Dashboard">Dashboard</NavItem>
+            <NavItem as="button" icon={<ChartIcon />} collapsed aria-label="Analytics">Analytics</NavItem>
+            <NavItem as="button" icon={<UsersIcon />} collapsed aria-label="Users">Users</NavItem>
+            <NavItem as="button" icon={<SettingsIcon />} collapsed aria-label="Settings">Settings</NavItem>
+          </NavGroup>
+        </SidebarContainer>
+        <SidebarContainerDark collapsed>
+          <NavGroup>
+            <NavItem as="button" icon={<HomeIcon />} collapsed tone="inverse" active aria-label="Dashboard">Dashboard</NavItem>
+            <NavItem as="button" icon={<ChartIcon />} collapsed tone="inverse" aria-label="Analytics">Analytics</NavItem>
+          </NavGroup>
+        </SidebarContainerDark>
       </Subsection>
 
-      <Subsection title="Como link (as='a')">
-        <NavGroup>
-          <NavItem as="a" href="#navitem" icon={<HomeIcon />} active>Início (link)</NavItem>
-          <NavItem as="a" href="#navitem" icon={<ChartIcon />}>Analytics (link)</NavItem>
-        </NavGroup>
+      <Subsection title="As link (as='a')">
+        <SidebarContainer>
+          <NavGroup>
+            <NavItem as="a" href="#navitem" icon={<HomeIcon />} active>Home (link)</NavItem>
+            <NavItem as="a" href="#navitem" icon={<ChartIcon />}>Analytics (link)</NavItem>
+          </NavGroup>
+        </SidebarContainer>
       </Subsection>
     </SectionWrapper>
   );

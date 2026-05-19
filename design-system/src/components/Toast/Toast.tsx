@@ -164,7 +164,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         {/* Intent accent bar */}
         <span
           aria-hidden="true"
-          className="w-1 shrink-0 self-stretch"
+          className="w-2 shrink-0 self-stretch"
           style={{ backgroundColor: ACCENT_VAR[intent] }}
         />
 

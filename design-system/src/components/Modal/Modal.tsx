@@ -102,18 +102,35 @@ const Modal: React.FC<ModalProps> = ({
     if (open) triggerRef.current = document.activeElement;
   }, [open]);
 
+  // Manage scroll lock and layout shift padding
+  React.useEffect(() => {
+    if (!open) return;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const oldOverflow = document.body.style.overflow;
+    const oldPaddingRight = document.body.style.paddingRight;
+
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = oldOverflow;
+      document.body.style.paddingRight = oldPaddingRight;
+    };
+  }, [open]);
+
   // Mount → animate in
   React.useEffect(() => {
     if (open) {
       setMounted(true);
       const raf = requestAnimationFrame(() => setVisible(true));
-      document.body.style.overflow = 'hidden';
       return () => cancelAnimationFrame(raf);
     } else {
       setVisible(false);
       const t = setTimeout(() => {
         setMounted(false);
-        document.body.style.overflow = '';
         (triggerRef.current as HTMLElement | null)?.focus();
       }, 200);
       return () => clearTimeout(t);

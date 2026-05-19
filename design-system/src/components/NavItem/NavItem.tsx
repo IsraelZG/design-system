@@ -89,6 +89,7 @@ const NavItem = React.forwardRef<HTMLElement, NavItemProps>(
           sizeClasses[size],
           colorClasses,
           disabledClasses,
+          collapsed && 'justify-center px-0',
           className
         ),
         ...props,

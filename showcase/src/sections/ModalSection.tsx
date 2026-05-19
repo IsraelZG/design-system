@@ -1,31 +1,90 @@
 import { useState } from 'react';
-import { Modal, Button } from '@ds/index';
+import { Modal, Button, Checkbox } from '@ds/index';
 import { SectionWrapper, Subsection } from '../ui/SectionWrapper';
 
 const sizes = ['sm', 'md', 'lg', 'fullscreen'] as const;
 type ModalSize = typeof sizes[number];
 
+const modalContent: Record<ModalSize, { title: string; body: React.ReactNode }> = {
+  sm: {
+    title: 'Delete file?',
+    body: (
+      <>
+        <p className="text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-default)]">
+          This action cannot be undone. The file <strong>design-tokens-v2.zip</strong> will be permanently removed from your account.
+        </p>
+      </>
+    ),
+  },
+  md: {
+    title: 'Notification preferences',
+    body: (
+      <div className="flex flex-col gap-3">
+        <p className="text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-muted)]">
+          Choose which notifications you'd like to receive.
+        </p>
+        <Checkbox checked onChange={() => {}}>Product updates and announcements</Checkbox>
+        <Checkbox checked={false} onChange={() => {}}>Weekly digest email</Checkbox>
+        <Checkbox checked onChange={() => {}}>Security alerts</Checkbox>
+      </div>
+    ),
+  },
+  lg: {
+    title: 'Invoice #INV-2024-089',
+    body: (
+      <div className="flex flex-col gap-2">
+        {[
+          { label: 'Design System License', amount: '$199.00' },
+          { label: 'Component Library Add-on', amount: '$49.00' },
+          { label: 'Priority Support (1yr)', amount: '$99.00' },
+        ].map(({ label, amount }) => (
+          <div
+            key={label}
+            className="flex justify-between py-2 border-b border-[color:var(--ds-theme-border-subtle)] last:border-b-0"
+          >
+            <span className="text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-default)]">{label}</span>
+            <span className="text-[length:var(--ds-font-size-sm)] font-[var(--ds-font-weight-semibold)] text-[color:var(--ds-theme-content-strong)]">{amount}</span>
+          </div>
+        ))}
+        <div className="flex justify-between pt-2">
+          <span className="text-[length:var(--ds-font-size-sm)] font-[var(--ds-font-weight-semibold)] text-[color:var(--ds-theme-content-strong)]">Total</span>
+          <span className="text-[length:var(--ds-font-size-sm)] font-[var(--ds-font-weight-bold)] text-[color:var(--ds-theme-content-strong)]">$347.00</span>
+        </div>
+      </div>
+    ),
+  },
+  fullscreen: {
+    title: 'Import data',
+    body: (
+      <p className="text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-muted)]">
+        Upload a CSV or JSON file to import your component data. Large imports may take a few minutes to process.
+      </p>
+    ),
+  },
+};
+
 export default function ModalSection() {
   const [open, setOpen] = useState<ModalSize | null>(null);
-  const [dismissible, setDismissible] = useState<ModalSize | null>(null);
+  const [nonDismissibleOpen, setNonDismissibleOpen] = useState(false);
 
   return (
     <SectionWrapper
       id="modal"
       title="Modal"
-      description="Dialog bloqueante com foco preso. Fecha por Esc, X ou overlay (quando dismissible=true)."
+      overline="Component"
+      description="Blocking dialog with focus trap. Closes on Esc, × or overlay when dismissible=true."
     >
-      <Subsection title="Tamanhos">
+      <Subsection title="Sizes">
         {sizes.map(size => (
           <Button key={size} variant="secondary" onClick={() => setOpen(size)}>
-            Abrir {size}
+            Open {size}
           </Button>
         ))}
       </Subsection>
 
-      <Subsection title="Não dismissible">
-        <Button variant="ghost" onClick={() => setDismissible('md')}>
-          Abrir modal não fechável por Esc/overlay
+      <Subsection title="Non-dismissible">
+        <Button variant="ghost" onClick={() => setNonDismissibleOpen(true)}>
+          Open modal — requires explicit action
         </Button>
       </Subsection>
 
@@ -35,34 +94,32 @@ export default function ModalSection() {
           open={open === size}
           onClose={() => setOpen(null)}
           size={size}
-          title={`Modal ${size}`}
+          title={modalContent[size].title}
         >
-          <p style={{ color: 'var(--ds-theme-content-default)' }}>
-            Este modal tem tamanho <strong>{size}</strong>. Pressione Esc ou clique no overlay para fechar.
-          </p>
-          <p className="mt-2 text-sm" style={{ color: 'var(--ds-theme-content-muted)' }}>
-            O foco é preso dentro do modal enquanto estiver aberto. Tab e Shift+Tab cicla apenas pelos elementos internos.
-          </p>
+          {modalContent[size].body}
           <div className="mt-6 flex gap-2 justify-end">
-            <Button variant="ghost" onClick={() => setOpen(null)}>Cancelar</Button>
-            <Button onClick={() => setOpen(null)}>Confirmar</Button>
+            <Button variant="ghost" onClick={() => setOpen(null)}>Cancel</Button>
+            {size === 'sm'
+              ? <Button variant="danger" onClick={() => setOpen(null)}>Delete permanently</Button>
+              : <Button onClick={() => setOpen(null)}>Confirm</Button>
+            }
           </div>
         </Modal>
       ))}
 
       <Modal
-        open={dismissible === 'md'}
-        onClose={() => setDismissible(null)}
+        open={nonDismissibleOpen}
+        onClose={() => setNonDismissibleOpen(false)}
         size="md"
-        title="Modal não dismissible"
+        title="Confirm account deletion"
         dismissible={false}
       >
-        <p style={{ color: 'var(--ds-theme-content-default)' }}>
-          Este modal não fecha por Esc nem por clique no overlay. O usuário deve usar um dos botões abaixo.
+        <p className="text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-default)]">
+          This action requires your explicit confirmation. Your account and all associated data will be permanently deleted.
         </p>
         <div className="mt-6 flex gap-2 justify-end">
-          <Button variant="danger" onClick={() => setDismissible(null)}>Fechar</Button>
-          <Button onClick={() => setDismissible(null)}>Confirmar</Button>
+          <Button variant="secondary" onClick={() => setNonDismissibleOpen(false)}>Keep my account</Button>
+          <Button variant="danger" onClick={() => setNonDismissibleOpen(false)}>Yes, delete account</Button>
         </div>
       </Modal>
     </SectionWrapper>

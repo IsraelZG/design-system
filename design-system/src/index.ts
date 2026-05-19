@@ -33,4 +33,13 @@ export type { AlertProps } from './components/Alert/Alert';
 export { Checkbox } from './components/Checkbox/Checkbox';
 export type { CheckboxProps } from './components/Checkbox/Checkbox';
 
+export { NavGroup } from './components/NavGroup/NavGroup';
+export type { NavGroupProps } from './components/NavGroup/NavGroup';
+
+export { FormField } from './components/FormField/FormField';
+export type { FormFieldProps } from './components/FormField/FormField';
+
 export { cn } from './lib/utils';
+export { compileThemeToCSS, defaultLightTheme, defaultDarkTheme } from './lib/themeEngine';
+export type { ThemeJSON } from './lib/themeEngine';
+

@@ -10,6 +10,7 @@ import { cn } from '@ds/lib/utils';
 
 const cardVariants = cva(
   [
+    'block text-inherit no-underline',
     'rounded-[var(--ds-component-card-radius)]',
     'bg-[var(--ds-component-card-bg)]',
     'border border-[var(--ds-component-card-border)]',

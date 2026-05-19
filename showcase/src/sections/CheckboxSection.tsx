@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Checkbox } from '@ds/index';
+import { Checkbox, Card, FormField } from '@ds/index';
 import { SectionWrapper, Subsection } from '../ui/SectionWrapper';
 
 export default function CheckboxSection() {
@@ -17,42 +17,48 @@ export default function CheckboxSection() {
     <SectionWrapper
       id="checkbox"
       title="Checkbox"
-      description="Seleção binária ou indeterminada. onChange simplificado: recebe boolean diretamente."
+      overline="Component"
+      description="Binary or indeterminate selection. onChange receives a boolean directly."
     >
-      <Subsection title="Estados básicos" stack>
-        <Checkbox checked={checked} onChange={setChecked}>
-          Clique para alternar ({checked ? 'checked' : 'unchecked'})
-        </Checkbox>
-        <Checkbox checked onChange={() => {}} disabled>
-          Checked + disabled
-        </Checkbox>
-        <Checkbox checked={false} onChange={() => {}} disabled>
-          Unchecked + disabled
-        </Checkbox>
+      <Subsection title="In form context" stack>
+        <Card padding="md" className="max-w-sm w-full">
+          <p className="text-[length:var(--ds-font-size-sm)] font-[var(--ds-font-weight-semibold)] text-[color:var(--ds-theme-content-strong)] mb-4">
+            Email notifications
+          </p>
+          <div className="flex flex-col gap-3">
+            <FormField label="New comments" helpText="Get notified when someone replies.">
+              <Checkbox checked={checked} onChange={setChecked} />
+            </FormField>
+            <FormField label="Critical alerts" helpText="Always enabled — required for security.">
+              <Checkbox checked onChange={() => {}} disabled />
+            </FormField>
+            <FormField label="Marketing emails" helpText="Requires the Pro plan.">
+              <Checkbox checked={false} onChange={() => {}} disabled />
+            </FormField>
+          </div>
+        </Card>
       </Subsection>
 
-      <Subsection title="Indeterminate — selecionar todos" stack>
+      <Subsection title="Select all — indeterminate" stack>
         <div className="flex flex-col gap-2">
           <Checkbox
             indeterminate={someChecked}
             checked={allChecked}
             onChange={toggleAll}
           >
-            Selecionar todos
+            Select all repositories
           </Checkbox>
           <div className="ml-6 flex flex-col gap-2">
-            {(['a', 'b', 'c'] as const).map(k => (
-              <Checkbox key={k} checked={items[k]} onChange={toggleItem(k)}>
-                Item {k.toUpperCase()}
-              </Checkbox>
-            ))}
+            <Checkbox checked={items.a} onChange={toggleItem('a')}>design-system</Checkbox>
+            <Checkbox checked={items.b} onChange={toggleItem('b')}>showcase-app</Checkbox>
+            <Checkbox checked={items.c} onChange={toggleItem('c')}>token-builder</Checkbox>
           </div>
         </div>
       </Subsection>
 
-      <Subsection title="Tamanhos">
-        <Checkbox size="sm" checked={false} onChange={() => {}}>Small</Checkbox>
-        <Checkbox size="md" checked={false} onChange={() => {}}>Medium (padrão)</Checkbox>
+      <Subsection title="Sizes">
+        <Checkbox size="sm" checked={false} onChange={() => {}}>Small — for dense tables or sidebars</Checkbox>
+        <Checkbox size="md" checked={false} onChange={() => {}}>Medium — default for forms</Checkbox>
       </Subsection>
     </SectionWrapper>
   );

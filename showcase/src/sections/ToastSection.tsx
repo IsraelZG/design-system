@@ -8,10 +8,18 @@ const placements = ['top-right', 'top-center', 'bottom-right', 'bottom-center'] 
 type Intent = typeof intents[number];
 type Placement = typeof placements[number];
 
+const toastMessages: Record<Intent, string> = {
+  info: 'Update available. Refresh to apply the latest changes.',
+  success: 'File uploaded successfully. Processing in the background.',
+  warning: 'Storage at 90% capacity. Consider removing unused files.',
+  danger: 'Connection lost. Retrying in 5 seconds…',
+};
+
 interface ActiveToast {
   intent: Intent;
   placement: Placement;
   key: number;
+  persistent: boolean;
 }
 
 export default function ToastSection() {
@@ -19,54 +27,44 @@ export default function ToastSection() {
   const [placement, setPlacement] = useState<Placement>('top-right');
   const [counter, setCounter] = useState(0);
 
-  const show = (intent: Intent) => {
+  const show = (intent: Intent, persistent = false) => {
     setCounter(c => c + 1);
-    setToast({ intent, placement, key: counter + 1 });
+    setToast({ intent, placement, key: counter + 1, persistent });
   };
 
   return (
     <SectionWrapper
       id="toast"
       title="Toast"
-      description="Notificação transitória com auto-dismiss em 5s. Timer pausa ao hover/focus (WCAG 2.2.1)."
+      overline="Component"
+      description="Transient notification that auto-dismisses in 5s. Timer pauses on hover/focus (WCAG 2.2.1)."
     >
       <Subsection title="Placement">
         <div className="flex flex-wrap gap-2">
           {placements.map(p => (
-            <button
+            <Button
               key={p}
+              variant={placement === p ? 'primary' : 'secondary'}
+              size="sm"
               onClick={() => setPlacement(p)}
-              className="px-3 py-1.5 text-sm rounded-lg border transition-colors"
-              style={{
-                backgroundColor: placement === p ? 'var(--ds-theme-intent-accent-subtle)' : 'transparent',
-                borderColor: placement === p ? 'var(--ds-theme-intent-accent-border)' : 'var(--ds-theme-border-default)',
-                color: placement === p ? 'var(--ds-theme-intent-accent-on-subtle)' : 'var(--ds-theme-content-muted)',
-              }}
             >
               {p}
-            </button>
+            </Button>
           ))}
         </div>
       </Subsection>
 
-      <Subsection title="Disparar toast (intent)">
+      <Subsection title="Trigger by intent">
         {intents.map(intent => (
           <Button key={intent} variant="secondary" size="sm" onClick={() => show(intent)}>
-            Mostrar {intent}
+            {intent[0].toUpperCase() + intent.slice(1)}
           </Button>
         ))}
       </Subsection>
 
-      <Subsection title="Duração infinita">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            setCounter(c => c + 1);
-            setToast({ intent: 'info', placement, key: counter + 1 });
-          }}
-        >
-          Duração infinita (fechar manualmente)
+      <Subsection title="Persistent — no auto-dismiss">
+        <Button variant="ghost" size="sm" onClick={() => show('info', true)}>
+          Show persistent toast
         </Button>
       </Subsection>
 
@@ -75,9 +73,11 @@ export default function ToastSection() {
           key={toast.key}
           intent={toast.intent}
           placement={toast.placement}
+          duration={toast.persistent ? null : 5000}
           onDismiss={() => setToast(null)}
+          showClose
         >
-          Notificação <strong>{toast.intent}</strong> — {toast.placement}
+          {toastMessages[toast.intent]}
         </Toast>
       )}
     </SectionWrapper>

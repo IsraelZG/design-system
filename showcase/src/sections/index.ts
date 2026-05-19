@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import HomeSection from './HomeSection';
 import ButtonSection from './ButtonSection';
 import BadgeSection from './BadgeSection';
 import InputSection from './InputSection';
@@ -14,11 +15,13 @@ import ModalSection from './ModalSection';
 export interface SectionDef {
   id: string;
   label: string;
-  category: 'atom' | 'molecule' | 'organism';
+  category: 'atom' | 'molecule' | 'organism' | 'overview';
   component: ComponentType;
 }
 
 export const sections: SectionDef[] = [
+  // Overview
+  { id: 'overview', label: 'Overview', category: 'overview', component: HomeSection },
   // Atoms
   { id: 'button',   label: 'Button',   category: 'atom',     component: ButtonSection   },
   { id: 'badge',    label: 'Badge',    category: 'atom',     component: BadgeSection    },

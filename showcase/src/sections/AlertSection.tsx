@@ -1,91 +1,71 @@
 import { useState } from 'react';
-import { Alert } from '@ds/index';
-import { SectionWrapper } from '../ui/SectionWrapper';
+import { Alert, Button } from '@ds/index';
+import { SectionWrapper, Subsection } from '../ui/SectionWrapper';
 
 const intents = ['info', 'success', 'warning', 'danger'] as const;
+type Intent = typeof intents[number];
 
-const intentMessages: Record<string, string> = {
-  info: 'Sua sessão expira em 30 minutos. Salve seu trabalho antes.',
-  success: 'Configurações salvas com sucesso.',
-  warning: 'Atenção: esta ação não pode ser desfeita.',
-  danger: 'Falha ao conectar com o servidor. Tente novamente.',
+const intentTitles: Record<Intent, string> = {
+  info: 'Session expiring',
+  success: 'Payment confirmed',
+  warning: 'Unsaved changes',
+  danger: 'Connection failed',
+};
+
+const intentMessages: Record<Intent, string> = {
+  info: 'Your session will expire in 30 minutes. Save your work to avoid losing progress.',
+  success: 'Payment of $249.00 was processed successfully. Receipt sent to your email.',
+  warning: 'You have unsaved changes. Navigating away will discard all edits.',
+  danger: 'Unable to connect to the server. Check your connection and try again.',
 };
 
 export default function AlertSection() {
-  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
-  const [dismissible, setDismissible] = useState(true);
+  const [dismissed, setDismissed] = useState<Set<Intent>>(new Set());
 
-  const dismiss = (key: string) => setDismissed(d => new Set([...d, key]));
+  const dismiss = (intent: Intent) =>
+    setDismissed(prev => new Set([...prev, intent]));
+
   const restore = () => setDismissed(new Set());
 
   return (
     <SectionWrapper
       id="alert"
       title="Alert"
-      description="Notificação inline persistente. Nunca auto-descarta — use Toast para mensagens transitórias."
+      overline="Component"
+      description="Inline persistent feedback. Does not auto-dismiss. Use Toast for transient messages."
     >
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--ds-theme-content-subtle)' }}>
-          Intents
-        </p>
-        <div className="flex flex-col gap-3 max-w-lg">
-          {intents.map(intent => (
-            !dismissed.has(intent) && (
-              <Alert key={intent} intent={intent} title={intent[0].toUpperCase() + intent.slice(1)}>
+      <Subsection title="With title and dismiss" stack>
+        <div className="flex flex-col gap-3 max-w-lg w-full">
+          {intents.map(intent =>
+            !dismissed.has(intent) ? (
+              <Alert
+                key={intent}
+                intent={intent}
+                title={intentTitles[intent]}
+                dismissible
+                onDismiss={() => dismiss(intent)}
+              >
                 {intentMessages[intent]}
               </Alert>
-            )
-          ))}
-          {dismissed.size > 0 && dismissed.size === intents.length && (
-            <button
-              className="text-sm underline text-left"
-              style={{ color: 'var(--ds-theme-content-muted)' }}
-              onClick={restore}
-            >
-              Restaurar todos
-            </button>
+            ) : null
+          )}
+          {dismissed.size > 0 && (
+            <Button variant="ghost" size="sm" onClick={restore}>
+              Restore all alerts
+            </Button>
           )}
         </div>
-      </div>
+      </Subsection>
 
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--ds-theme-content-subtle)' }}>
-          Sem título
-        </p>
-        <div className="flex flex-col gap-3 max-w-lg">
+      <Subsection title="Without title" stack>
+        <div className="flex flex-col gap-3 max-w-lg w-full">
           {intents.map(intent => (
             <Alert key={intent} intent={intent}>
               {intentMessages[intent]}
             </Alert>
           ))}
         </div>
-      </div>
-
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--ds-theme-content-subtle)' }}>
-          Dismissible (interativo)
-        </p>
-        <div className="max-w-lg">
-          {dismissible ? (
-            <Alert
-              intent="info"
-              title="Aviso descartável"
-              dismissible
-              onDismiss={() => setDismissible(false)}
-            >
-              Clique no × para descartar este alerta. Componentes dismissible chamam onDismiss e param de renderizar.
-            </Alert>
-          ) : (
-            <button
-              className="text-sm underline"
-              style={{ color: 'var(--ds-theme-content-muted)' }}
-              onClick={() => setDismissible(true)}
-            >
-              Restaurar alerta
-            </button>
-          )}
-        </div>
-      </div>
+      </Subsection>
     </SectionWrapper>
   );
 }

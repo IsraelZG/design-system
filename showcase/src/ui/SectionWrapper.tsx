@@ -3,25 +3,23 @@ import type { ReactNode } from 'react';
 interface SectionWrapperProps {
   id: string;
   title: string;
+  overline?: string;
   description?: string;
   children: ReactNode;
 }
 
-export function SectionWrapper({ id, title, description, children }: SectionWrapperProps) {
+export function SectionWrapper({ id, title, overline, description, children }: SectionWrapperProps) {
   return (
     <section
       id={id}
-      className="py-10 border-b last:border-b-0"
-      style={{ borderColor: 'var(--ds-theme-border-subtle)' }}
+      className="pt-10 pb-20 border-b last:border-b-0 border-[color:var(--ds-theme-border-subtle)]"
     >
-      <h2
-        className="text-2xl font-semibold mb-1"
-        style={{ color: 'var(--ds-theme-content-strong)', fontFamily: 'var(--ds-font-family-sans)' }}
-      >
+      {overline && <p className="ds-overline mb-3">{overline}</p>}
+      <h2 className="text-[length:var(--ds-font-size-3xl)] font-[var(--ds-font-weight-semibold)] tracking-[var(--ds-font-letter-spacing-tight)] text-[color:var(--ds-theme-content-strong)] mb-1">
         {title}
       </h2>
       {description && (
-        <p className="mb-8 text-sm" style={{ color: 'var(--ds-theme-content-muted)' }}>
+        <p className="mb-8 text-[length:var(--ds-font-size-sm)] text-[color:var(--ds-theme-content-muted)] max-w-[60ch]">
           {description}
         </p>
       )}
@@ -39,14 +37,11 @@ interface SubsectionProps {
 export function Subsection({ title, children, stack = false }: SubsectionProps) {
   return (
     <div>
-      <p
-        className="text-xs font-semibold uppercase tracking-widest mb-3"
-        style={{ color: 'var(--ds-theme-content-subtle)' }}
-      >
-        {title}
-      </p>
-      <div className={stack ? 'flex flex-col gap-3' : 'flex flex-wrap items-start gap-3'}>
-        {children}
+      <p className="ds-overline mb-3">{title}</p>
+      <div className="ds-preview">
+        <div className={stack ? 'flex flex-col gap-3' : 'flex flex-wrap items-start gap-3'}>
+          {children}
+        </div>
       </div>
     </div>
   );

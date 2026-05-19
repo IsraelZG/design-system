@@ -1,7 +1,12 @@
+@import '../../design-system/build/web/tokens-global.css';
 @import '../../design-system/build/web/theme-light.css';
 @import '../../design-system/build/web/theme-dark.css';
 @import '../../design-system/docs/density.css';
-@import 'tailwindcss';
+@import '../../design-system/src/globals.css';
+
+@source "../../design-system/src/**/*.tsx";
+@source "../../design-system/src/**/*.ts";
+@source "./**/*.tsx";
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -14,7 +19,90 @@ html {
 body {
   margin: 0;
   font-family: var(--ds-font-family-sans);
-  background-color: var(--ds-theme-surface-canvas);
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 0%, var(--ds-theme-intent-accent-subtle), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 30%, var(--ds-theme-intent-blush-subtle), transparent 60%),
+    var(--ds-theme-surface-canvas);
   color: var(--ds-theme-content-default);
   -webkit-font-smoothing: antialiased;
+  transition: background 400ms var(--ds-motion-easing-smooth);
+}
+
+/* Glass morphism — topbar e superfícies flutuantes */
+.ds-glass {
+  background-color: var(--ds-theme-surface-glass-tint);
+  -webkit-backdrop-filter: blur(var(--ds-theme-blur-lg));
+  backdrop-filter: blur(var(--ds-theme-blur-lg));
+  border-color: var(--ds-theme-surface-glass-border);
+}
+
+/* Overline label — category headers, section labels */
+.ds-overline {
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: var(--ds-font-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--ds-theme-content-subtle);
+  margin: 0;
+}
+
+/* Preview container — fundo subdued para demos de componentes */
+.ds-preview {
+  background-color: var(--ds-theme-surface-subdued);
+  border-radius: var(--ds-radius-xl);
+  padding: var(--ds-spacing-5);
+}
+
+/* Custom Border Radius Modifiers */
+:root[data-radius="sharp"] {
+  --ds-radius-none: 0px;
+  --ds-radius-xs: 0px;
+  --ds-radius-sm: 0px;
+  --ds-radius-md: 0px;
+  --ds-radius-lg: 0px;
+  --ds-radius-xl: 0px;
+  --ds-radius-2xl: 0px;
+  --ds-radius-3xl: 0px;
+  --ds-radius-4xl: 0px;
+  --ds-radius-pill: 0px;
+  --ds-component-button-radius: 0px;
+  --ds-component-badge-radius: 0px;
+  --ds-component-input-radius: 0px;
+  --ds-component-card-radius: 0px;
+  --ds-component-message-radius: 0px;
+  --ds-component-alert-radius: 0px;
+  --ds-component-toast-radius: 0px;
+  --ds-component-modal-radius: 0px;
+}
+
+:root[data-radius="soft"] {
+  --ds-radius-none: 0px;
+  --ds-radius-xs: 2px;
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 6px;
+  --ds-radius-lg: 8px;
+  --ds-radius-xl: 10px;
+  --ds-radius-2xl: 12px;
+  --ds-radius-3xl: 16px;
+  --ds-radius-4xl: 20px;
+  --ds-radius-pill: 4px;
+  --ds-component-button-radius: 4px;
+  --ds-component-badge-radius: 2px;
+  --ds-component-input-radius: 4px;
+  --ds-component-card-radius: 8px;
+  --ds-component-message-radius: 4px;
+  --ds-component-alert-radius: 4px;
+  --ds-component-toast-radius: 6px;
+  --ds-component-modal-radius: 8px;
+}
+
+/* Focus demo button */
+.focus-demo {
+  transition: all 150ms var(--ds-motion-easing-smooth);
+}
+.focus-demo:focus-visible,
+.focus-demo.simulated-focus {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color) !important;
+  outline-offset: var(--ds-focus-ring-offset) !important;
+  box-shadow: var(--ds-focus-ring-shadow) !important;
 }
