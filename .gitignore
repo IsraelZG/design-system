@@ -1,6 +1,13 @@
 *.txt
-*.md
+
 .env
 node_modules
 dist
 build
+generate_project_summary.js
+
+# Compiled output co-located with source (tsc outDir)
+design-system/src/**/*.js
+design-system/src/**/*.js.map
+design-system/src/**/*.d.ts
+design-system/src/**/*.d.ts.map

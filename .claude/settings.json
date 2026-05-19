@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$j=[Console]::In.ReadToEnd()|ConvertFrom-Json; $f=$j.tool_input.file_path; if($f -and $f -match '\\.metadata\\.ts$'){Push-Location 'design-system'; try{npm run validate && npm run build:index}finally{Pop-Location}}",
+            "shell": "powershell",
+            "timeout": 30,
+            "statusMessage": "Validating metadata and rebuilding index..."
+          }
+        ]
+      }
+    ]
+  }
+}

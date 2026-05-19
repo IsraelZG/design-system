@@ -1,0 +1,20 @@
+@import '../../design-system/build/web/theme-light.css';
+@import '../../design-system/build/web/theme-dark.css';
+@import '../../design-system/docs/density.css';
+@import 'tailwindcss';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ds-font-family-sans);
+  background-color: var(--ds-theme-surface-canvas);
+  color: var(--ds-theme-content-default);
+  -webkit-font-smoothing: antialiased;
+}

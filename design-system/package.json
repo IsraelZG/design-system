@@ -21,9 +21,10 @@
     "build:react": "vite build",
     "build": "npm run build:tokens && npm run build:react",
     "validate": "node --experimental-strip-types scripts/validate-metadata.mjs",
-    "test": "npm run validate",
+    "test": "npm run validate && npm run typecheck",
     "dev": "nodemon --watch tokens --watch src --ext json,ts,tsx,css --exec \"npm run build\"",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
